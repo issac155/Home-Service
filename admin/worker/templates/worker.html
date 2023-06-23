@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Worker page</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'style5.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>SEA SENSE</b></h3>
+  </div>
+  <div class="w3-bar-block">
+ 
+    {% if user.is_authenticated %}
+    <a href="{% url 'work' %}"  onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" >Add Worker</a> 
+    <a href="{% url 'deal' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Add Dealer</a> 
+    <a href="{% url 'show' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">View Worker</a> 
+    <a href="{% url 'show1' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">View Dealer</a> 
+    <a href="{% url 'have' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Customer Details</a>
+    <a href="{% url 'hi' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">LOG OUT</a>
+    
+    {% else %}
+    
+    <a  href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    {% endif %}
+   
+
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>SEA SENSE</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+<br>
+<br>
+<br>
+  
+  <h2>Add Worker</h2>
+
+  <!-- <div class="container">
+    <form action="{% url 're' %}" method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-25">
+          <label for="fname">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="name"  name="name" placeholder="Your name..">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="lname">Pincode</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="mobile"   name="pin" placeholder="Your pincode..">
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-25">
+          <label for="lname">Type of work</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="place"  name="work" placeholder="Your work..">
+        </div>
+      </div>
+  
+      <div class="row">
+          <div class="col-25">
+            <label for="lname">Mob no</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="mobile"  name="mob" placeholder="Your mobile no..">
+          </div>
+        </div>
+      
+      <br>
+      
+      <div class="row">
+        <input type="submit"  id="sendb" value="Add">
+      </div>
+    </form>
+  </div>
+   -->
+   <div class="container">
+    <form action="{% url 're' %}" method="post">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" >
+        </div>
+        <div class="form-group col-md-6">
+          <label for="pin">Pincode</label>
+          <input type="text" class="form-control" id="pin" name="pin" >
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="work">Type of work</label>
+        <input type="text" class="form-control" id="work" name="work">
+      </div>
+  
+      <div class="form-group">
+        <label for="mob">Mobile number</label>
+        <input type="text" class="form-control" id="mob" name="mob" >
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+  </div>
+  
+</div>
+
+<!-- End page content -->
+
+
+<script>
+//number
+document.addEventListener("DOMContentLoaded", function() {
+  var mobileInput = document.getElementById("mobile");
+
+  mobileInput.addEventListener("input", function() {
+    var formattedValue = this.value.replace(/\D/g, ''); // Remove non-numeric characters
+    this.value = formattedValue;
+  });
+});
+
+
+$(function(){
+$('#keywords').tablesorter(); 
+});
+
+
+//button disable
+
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
